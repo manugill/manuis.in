@@ -9,8 +9,8 @@ Wordpress2016.overrideThemeStyles = () => ({
     boxShadow: 'none',
   },
   'p code': {
-    fontSize: '1.1rem'
-  }
+    fontSize: '1.1rem',
+  },
 })
 
 delete Wordpress2016.googleFonts
@@ -25,3 +25,5 @@ if (process.env.NODE_ENV !== 'production') {
 export default typography
 export const rhythm = typography.rhythm
 export const scale = typography.scale
+
+export const titleFont = 'sans-serif'

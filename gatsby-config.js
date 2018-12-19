@@ -1,12 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: 'Overreacted',
-    author: 'Dan Abramov',
-    description:
-      'Personal blog by Dan Abramov. I explain with words and code.',
-    siteUrl: 'https://overreacted.io',
+    title: `A Beating Heart`,
+    author: `Manu Gill`,
+    description: `asd`,
+    siteUrl: '//manuis.in',
     social: {
-      twitter: '@dan_abramov',
+      twitter: '@manuisin',
     },
   },
   pathPrefix: '/',
@@ -14,8 +13,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/pages`,
-        name: 'pages',
+        path: `${__dirname}/src/posts`,
+        name: 'post',
       },
     },
     {
@@ -57,8 +56,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Overreacted`,
-        short_name: `Overreacted`,
+        name: `A Beating Heart`,
+        short_name: `A Beating Heart`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffa7c4`,

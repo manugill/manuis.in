@@ -1,5 +1,5 @@
 ---
-title: Why Do React Elements Have a $$typeof Property?
+title: Why Do React Elements Have a $$typeof Property? 2
 date: '2018-12-03'
 spoiler: It has something to do with security.
 ---

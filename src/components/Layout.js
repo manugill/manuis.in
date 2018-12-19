@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import { rhythm, scale } from '../utils/typography'
+import Heart from '../components/Heart'
+import { rhythm, scale, titleFont } from '../utils/typography'
 
 class Layout extends React.Component {
   render() {
@@ -13,9 +14,11 @@ class Layout extends React.Component {
       header = (
         <h1
           style={{
+            fontWeight: 400,
             ...scale(1.0),
             marginBottom: rhythm(1.5),
-            marginTop: 0,
+            marginTop: 500,
+            textAlign: 'center',
           }}
         >
           <Link
@@ -28,13 +31,14 @@ class Layout extends React.Component {
           >
             {title}
           </Link>
+          <small style={{display: 'block', opacity: 0.75, ...scale(0.25)}}>manuis.in</small>
         </h1>
       )
     } else {
       header = (
         <h3
           style={{
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: titleFont,
             marginTop: 0,
             marginBottom: rhythm(-1),
           }}
@@ -53,17 +57,20 @@ class Layout extends React.Component {
       )
     }
     return (
-      <div
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
-        {header}
-        {children}
-      </div>
+      <React.Fragment>
+        <Heart />
+        <div
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            maxWidth: rhythm(24),
+            padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          }}
+        >
+          {header}
+          {children}
+        </div>
+      </React.Fragment>
     )
   }
 }

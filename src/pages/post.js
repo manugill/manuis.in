@@ -6,17 +6,20 @@ import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import { formatReadingTime } from '../utils/helpers'
-import { rhythm, scale } from '../utils/typography'
+import { rhythm, scale, titleFont } from '../utils/typography'
 
 const GITHUB_USERNAME = 'gaearon'
 const GITHUB_REPO_NAME = 'overreacted.io'
 
-class BlogPostTemplate extends React.Component {
+class PostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const { previous, next, slug } = this.props.pageContext
-    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(/\//g, '')}.md`
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(
+      /\//g,
+      ''
+    )}.md`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
@@ -24,7 +27,9 @@ class BlogPostTemplate extends React.Component {
           description={post.frontmatter.spoiler}
           slug={post.fields.slug}
         />
-        <h1>{post.frontmatter.title}</h1>
+        <h1>
+          {post.frontmatter.title}
+        </h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -38,11 +43,7 @@ class BlogPostTemplate extends React.Component {
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
-          <a
-            href={editUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={editUrl} target="_blank" rel="noopener noreferrer">
             Edit on GitHub
           </a>
         </p>
@@ -53,7 +54,7 @@ class BlogPostTemplate extends React.Component {
         />
         <h3
           style={{
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: titleFont,
             marginTop: rhythm(0.25),
           }}
         >
@@ -65,7 +66,7 @@ class BlogPostTemplate extends React.Component {
             }}
             to={'/'}
           >
-            Overreacted
+            {siteTitle}
           </Link>
         </h3>
         <Bio />
@@ -98,10 +99,10 @@ class BlogPostTemplate extends React.Component {
   }
 }
 
-export default BlogPostTemplate
+export default PostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query PostBySlug($slug: String!) {
     site {
       siteMetadata {
         title

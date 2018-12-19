@@ -1,10 +1,11 @@
 import React from 'react'
 
 // Import typefaces
-import 'typeface-montserrat'
-import 'typeface-merriweather'
+// import 'typeface-montserrat'
+// import 'typeface-merriweather'
+// import 'typeface-emilys-candy'
 
-import profilePic from './profile-pic.jpg'
+import pic from '../assets/me.jpg'
 import { rhythm } from '../utils/typography'
 
 class Bio extends React.Component {
@@ -13,23 +14,25 @@ class Bio extends React.Component {
       <div
         style={{
           display: 'flex',
+          margin: `0 auto`,
           marginBottom: rhythm(2.5),
+          maxWidth: rhythm(17),
         }}
       >
         <img
-          src={profilePic}
-          alt={`Dan Abramov`}
+          src={pic}
+          alt={`Manu Gill`}
           style={{
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
             width: rhythm(2),
             height: rhythm(2),
+            borderRadius: '100%',
           }}
         />
-        <p style={{ maxWidth: 310 }}>
-          Personal blog by <a href="https://mobile.twitter.com/dan_abramov">Dan Abramov</a>.
-          {' '}
-          I&nbsp;explain with words and code.
+        <p>
+          My name is Manu. I write about mental health, emotions, cultures,
+          society, philosophy and code.
         </p>
       </div>
     )
