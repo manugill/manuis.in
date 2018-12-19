@@ -165,7 +165,8 @@ class Graphic extends React.Component {
           top: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgba(255, 255, 255, 1)',
+          // transform: `scale(0.5)`,
+          // transformOrigin: '50% 0',
         }}
       />
     )

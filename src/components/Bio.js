@@ -16,7 +16,7 @@ class Bio extends React.Component {
           display: 'flex',
           margin: `0 auto`,
           marginBottom: rhythm(2.5),
-          maxWidth: rhythm(17),
+          maxWidth: rhythm(12.5),
         }}
       >
         <img
@@ -31,7 +31,7 @@ class Bio extends React.Component {
           }}
         />
         <p>
-          My name is Manu. I write about mental health, emotions, cultures,
+          I write about mental health, emotions, cultures,
           society, philosophy and code.
         </p>
       </div>
