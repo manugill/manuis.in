@@ -5,8 +5,8 @@ import get from 'lodash/get'
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import PostMeta from '../components/PostMeta'
 import Footer from '../components/Footer'
-import { formatReadingTime } from '../utils/helpers'
 import { rhythm } from '../utils/typography'
 
 class BlogIndex extends React.Component {
@@ -28,17 +28,12 @@ class BlogIndex extends React.Component {
             <div key={node.fields.slug}>
               <h3
                 style={{
-                  marginBottom: rhythm(1 / 4),
+                  marginBottom: rhythm(0),
                 }}
               >
-                <Link to={node.fields.slug}>
-                  {title}
-                </Link>
+                <Link to={node.fields.slug}>{title}</Link>
               </h3>
-              <small>
-                {node.frontmatter.date}
-                {` — ${formatReadingTime(node.timeToRead)}`}
-              </small>
+              <PostMeta {...node} style={{ marginBottom: rhythm(0.25) }} />
               <p
                 dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
               />

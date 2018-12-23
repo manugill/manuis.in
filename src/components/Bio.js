@@ -15,7 +15,7 @@ class Bio extends React.Component {
         style={{
           display: 'flex',
           // margin: `0 auto`,
-          marginBottom: rhythm(3),
+          marginBottom: rhythm(1.25),
           maxWidth: rhythm(12.5),
         }}
       >
@@ -24,20 +24,22 @@ class Bio extends React.Component {
           title={`Manu Gill`}
           style={{
             float: 'right',
-            marginRight: rhythm(1 / 2),
+            marginRight: rhythm(0.5),
             marginBottom: 0,
-            width: rhythm(2),
-            height: rhythm(2),
+            width: rhythm(1.75),
+            height: rhythm(1.75),
             borderRadius: '100%',
             background: '#eee',
           }}
         />
-        <p style={{
-          fontSize: 15,
-          lineHeight: 1.6,
-          marginTop: 4,
-          marginBottom: 0,
-        }}>
+        <p
+          style={{
+            fontSize: 15,
+            lineHeight: 1.6,
+            marginTop: 0,
+            marginBottom: 0,
+          }}
+        >
           I write about mental health, emotions, culture, society, philosophy
           and code.
         </p>
