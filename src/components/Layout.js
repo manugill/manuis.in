@@ -2,9 +2,10 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 import Heart from '../components/Heart'
-import { rhythm, scale, titleFont } from '../utils/typography'
+import { rhythm, scale } from '../utils/typography'
 
-const { host = 'manuis.in' } = window
+const w = typeof window === 'undefined' ? {} : window
+const { host = 'manuis.in' } = w
 
 class Layout extends React.Component {
   render() {
@@ -15,27 +16,18 @@ class Layout extends React.Component {
     if (location.pathname === rootPath) {
       header = (
         <div style={{
-          marginTop: 500,
-          marginBottom: rhythm(1.5),
-          textAlign: 'center',
+          marginTop: 400,
+          marginBottom: rhythm(1.25),
+          // textAlign: 'center',
         }}>
+          <Heart />
           <h1
             style={{
-              fontWeight: 400,
               ...scale(1.0),
               margin: 0,
             }}
           >
-            <Link
-              style={{
-                boxShadow: 'none',
-                textDecoration: 'none',
-                color: 'inherit',
-              }}
-              to={'/'}
-            >
-              {title}
-            </Link>
+            {title}
           </h1>
           <p style={{ margin: 0, opacity: 0.75, ...scale(0.1) }}>Blog by Manu Gill — {host}</p>
         </div>
@@ -44,17 +36,11 @@ class Layout extends React.Component {
       header = (
         <h3
           style={{
-            fontFamily: titleFont,
             marginTop: 0,
             marginBottom: rhythm(-1),
           }}
         >
           <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: '#ffa7c4',
-            }}
             to={'/'}
           >
             {title}
@@ -64,7 +50,6 @@ class Layout extends React.Component {
     }
     return (
       <React.Fragment>
-        <Heart />
         <div
           style={{
             marginLeft: 'auto',

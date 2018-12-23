@@ -8,14 +8,15 @@ import SEO from '../components/SEO'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale, titleFont } from '../utils/typography'
 
-const GITHUB_USERNAME = 'gaearon'
-const GITHUB_REPO_NAME = 'overreacted.io'
+const GITHUB_USERNAME = 'manugill'
+const GITHUB_REPO_NAME = 'manuis.in'
 
 class PostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const { previous, next, slug } = this.props.pageContext
+    const { previous, next, slug = '' } = this.props.pageContext
+    console.log(previous, next)
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(
       /\//g,
       ''
@@ -39,7 +40,7 @@ class PostTemplate extends React.Component {
           }}
         >
           {post.frontmatter.date}
-          {` • ${formatReadingTime(post.timeToRead)}`}
+          {` — ${formatReadingTime(post.timeToRead)}`}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
@@ -54,16 +55,10 @@ class PostTemplate extends React.Component {
         />
         <h3
           style={{
-            fontFamily: titleFont,
             marginTop: rhythm(0.25),
           }}
         >
           <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: '#ffa7c4',
-            }}
             to={'/'}
           >
             {siteTitle}
@@ -102,7 +97,7 @@ class PostTemplate extends React.Component {
 export default PostTemplate
 
 export const pageQuery = graphql`
-  query PostBySlug($slug: String!) {
+  query PostBySlug($slug: String) {
     site {
       siteMetadata {
         title
@@ -115,7 +110,7 @@ export const pageQuery = graphql`
       timeToRead
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "DD MMMM YYYY")
         spoiler
       }
       fields {

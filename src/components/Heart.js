@@ -2,24 +2,24 @@ import React from 'react'
 
 const config = {
   traceK: 0.4,
-  timeDelta: 0.01,
+  timeDelta: 0.001,
 }
 
-const heartPosition = rad => {
-  //return [Math.sin(rad), Math.cos(rad)];
-  return [
-    Math.pow(Math.sin(rad), 3),
-    -(
-      15 * Math.cos(rad) -
-      5 * Math.cos(2 * rad) -
-      2 * Math.cos(3 * rad) -
-      Math.cos(4 * rad)
-    ),
-  ]
-}
+const heartPos = rad => [
+  Math.pow(Math.sin(rad), 3),
+  -(
+    15 * Math.cos(rad) -
+    5 * Math.cos(2 * rad) -
+    2 * Math.cos(3 * rad) -
+    Math.cos(4 * rad)
+  ),
+]
+// [Math.sin(rad), Math.cos(rad)] // for a sphere
+
+const scaleModifier = 1
 const scaleAndTranslate = (pos, sx, sy, dx, dy) => [
-  dx + pos[0] * sx,
-  dy + pos[1] * sy,
+  dx + pos[0] * sx * scaleModifier,
+  dy + pos[1] * sy * scaleModifier,
 ]
 
 const rand = Math.random
@@ -27,37 +27,37 @@ const rand = Math.random
 class Graphic extends React.Component {
   pointsOrigin = []
   e = []
+  width = 0
+  height = 0
+
   heartPointsCount = () => this.pointsOrigin.length
 
-  constructor(props) {
-    super(props)
-    this.paint = this.paint.bind(this)
+  updateDimensions = () => {
+    const { canvas } = this.refs
+    const { width, height } = canvas.getBoundingClientRect()
+    const koef = 1.25
+    this.width = canvas.width = koef * width
+    this.height = canvas.height = koef * height
   }
 
-  componentDidMount() {
-    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
-      (navigator.userAgent || navigator.vendor || window.opera).toLowerCase()
-    )
-    var koef = isMobile ? 0.5 : 1
-    var canvas = this.refs.canvas
-    var ctx = canvas.getContext('2d')
-    this.width = canvas.width = koef * innerWidth
-    this.height = canvas.height = koef * innerHeight
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions)
+  }
 
-    // TODO: Remove this listener on unmount
-    window.addEventListener('resize', () => {
-      this.width = canvas.width = koef * innerWidth
-      this.height = canvas.height = koef * innerHeight
-    })
+  async componentDidMount() {
+    this.updateDimensions()
+    window.addEventListener('resize', this.updateDimensions)
 
-    var traceCount = isMobile ? 20 : 50
-    var dr = isMobile ? 0.3 : 0.1
+    const traceCount = 50
+    const dr = 0.1
+
+    // I don't understand why PI * 2 is being used here.
     for (let i = 0; i < Math.PI * 2; i += dr)
-      this.pointsOrigin.push(scaleAndTranslate(heartPosition(i), 210, 13, 0, 0))
+      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 210, 13, 0, 0))
     for (let i = 0; i < Math.PI * 2; i += dr)
-      this.pointsOrigin.push(scaleAndTranslate(heartPosition(i), 150, 9, 0, 0))
+      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 150, 9, 0, 0))
     for (let i = 0; i < Math.PI * 2; i += dr)
-      this.pointsOrigin.push(scaleAndTranslate(heartPosition(i), 90, 5, 0, 0))
+      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 90, 5, 0, 0))
 
     for (let i = 0; i < this.heartPointsCount(); i++) {
       var x = rand() * this.width
@@ -66,49 +66,44 @@ class Graphic extends React.Component {
         vx: 0,
         vy: 0,
         R: 2,
-        speed: rand() + 5,
+        speed: rand() + 3,
         q: ~~(rand() * this.heartPointsCount()),
         D: 2 * (i % 2) - 1,
-        force: 0.2 * rand() + 0.7,
+        force: 0.2 * rand() + 0.5,
         f:
           'hsla(0,' +
           ~~(40 * rand() + 60) +
           '%,' +
           ~~(60 * rand() + 20) +
-          '%,.3)',
+          '%,.4)',
         trace: [],
       }
       for (let k = 0; k < traceCount; k++) this.e[i].trace[k] = { x: x, y: y }
     }
   }
 
-  componentDidUpdate() {
-    this.paint()
-  }
-
-  paint() {
-    const { pointsOrigin, e } = this
-    var canvas = this.refs.canvas
-    var ctx = canvas.getContext('2d')
+  componentDidUpdate = () => {
+    const { pointsOrigin, e, refs } = this
+    const ctx = refs.canvas.getContext('2d')
 
     const { n } = this.props
 
     var targetPoints = []
-    var pulse = (kx, ky) => {
-      for (let i = 0; i < pointsOrigin.length; i++) {
-        targetPoints[i] = []
 
-        // positioning
-        targetPoints[i][0] = kx * pointsOrigin[i][0] + this.width / 2
-        targetPoints[i][1] = ky * pointsOrigin[i][1] + 250
+    // pulse
+    // const kx = (1 + n) * 0.5
+    // const ky = (1 + n) * 0.5
+    const kx = 1 + n
+    const ky = 1 + n
 
-        // centered
-        // targetPoints[i][0] = kx * pointsOrigin[i][0] + this.width / 2
-        // targetPoints[i][1] = ky * pointsOrigin[i][1] + this.height / 2
-      }
+    for (let i = 0; i < pointsOrigin.length; i++) {
+      targetPoints[i] = []
+
+      // heart center position
+      targetPoints[i][0] = kx * pointsOrigin[i][0] + this.width / 2 // centered
+      // targetPoints[i][1] = ky * pointsOrigin[i][1] + this.height / 2 // centered
+      targetPoints[i][1] = ky * pointsOrigin[i][1] + 250
     }
-
-    pulse((1 + n) * 0.5, (1 + n) * 0.5)
 
     ctx.fillStyle = 'rgba(255,255,255,.1)' // background color
     ctx.fillRect(0, 0, this.width, this.height)
@@ -150,8 +145,11 @@ class Graphic extends React.Component {
         ctx.fillRect(u.trace[k].x, u.trace[k].y, 1, 1)
       }
     }
-    // ctx.fillStyle = "rgba(255,255,255,1)";
-    // for (i = u.trace.length; i--;) ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 2, 2);
+
+    // shape tracer
+    // ctx.fillStyle = 'rgba(0,0,0,1)'
+    // for (let i = u.trace.length; i--; )
+    //   ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 4, 4)
   }
 
   render() {
@@ -160,13 +158,14 @@ class Graphic extends React.Component {
         ref="canvas"
         style={{
           position: 'absolute',
-          zIndex: -1,
+          zIndex: 1,
           left: 0,
           top: 0,
           width: '100%',
-          height: '100%',
-          // transform: `scale(0.5)`,
-          // transformOrigin: '50% 0',
+          height: 450,
+          borderBottomLeftRadius: '100%',
+          borderBottomRightRadius: '100%',
+          overflow: 'hidden',
         }}
       />
     )
@@ -174,28 +173,31 @@ class Graphic extends React.Component {
 }
 
 class Heart extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = { time: 0 }
-  }
+  state = { time: 0 }
+  animationHandle = undefined
 
-  componentDidMount() {
-    console.log('hello');
-    requestAnimationFrame(this.nextFrame)
-  }
+  componentDidMount = () => this.nextFrame()
+
+  componentWillUnmount = () => cancelAnimationFrame(this.animationHandle)
 
   nextFrame = () => {
     this.setState({ time: this.newTime() })
-    requestAnimationFrame(this.nextFrame)
+    this.animationHandle = requestAnimationFrame(this.nextFrame)
   }
 
-  n = () => -Math.cos(this.state.time)
+  // I don't understand any of this complex math.
+  // But it just adds randomness to the value of n which is used for the pulse.
+  // negative cos of time just makes the heart super tiny for certain values of time.
+  // newTime = (time = this.state.time, n = this.n()) =>
+  //   time + (Math.sin(time) < 0 ? 1 : n < 0.8 ? 0.5 : 1) * 0.5
+  // n = () => -Math.cos(this.state.time)
 
-  newTime = (time = this.state.time, n = this.n()) =>
-    time + (Math.sin(time) < 0 ? 9 : n > 0.8 ? 0.2 : 1) * config.timeDelta
+  // But I don't really want that.
+  newTime = (time = this.state.time) => time + 1
+  n = () => 0
 
-  render() {
-    return <Graphic time={this.state.time} n={this.n()} />
+  render = () => {
+    return <Graphic n={this.n()} />
   }
 }
 

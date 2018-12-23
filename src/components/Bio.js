@@ -14,25 +14,32 @@ class Bio extends React.Component {
       <div
         style={{
           display: 'flex',
-          margin: `0 auto`,
-          marginBottom: rhythm(2.5),
+          // margin: `0 auto`,
+          marginBottom: rhythm(3),
           maxWidth: rhythm(12.5),
         }}
       >
         <img
           src={pic}
-          alt={`Manu Gill`}
+          title={`Manu Gill`}
           style={{
+            float: 'right',
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
             width: rhythm(2),
             height: rhythm(2),
             borderRadius: '100%',
+            background: '#eee',
           }}
         />
-        <p>
-          I write about mental health, emotions, cultures,
-          society, philosophy and code.
+        <p style={{
+          fontSize: 15,
+          lineHeight: 1.6,
+          marginTop: 4,
+          marginBottom: 0,
+        }}>
+          I write about mental health, emotions, culture, society, philosophy
+          and code.
         </p>
       </div>
     )
