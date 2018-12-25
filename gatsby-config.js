@@ -64,7 +64,7 @@ module.exports = {
         short_name: `A Beating Heart`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#ffa7c4`,
+        theme_color: `#ffffff`,
         display: `minimal-ui`,
         icon: `src/assets/icon.png`,
       },
