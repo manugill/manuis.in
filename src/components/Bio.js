@@ -17,6 +17,7 @@ class Bio extends React.Component {
         <div
           title="Manu Gill"
           style={{
+            background: '#eee',
             backgroundImage: `url(${pic})`,
             backgroundSize: 'cover',
             float: 'left',
@@ -28,7 +29,6 @@ class Bio extends React.Component {
             height: 50,
             minWidth: 50,
             borderRadius: '100%',
-            background: '#eee',
           }}
         />
         <p
