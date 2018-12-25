@@ -1,10 +1,5 @@
 import React from 'react'
 
-// Import typefaces
-// import 'typeface-montserrat'
-// import 'typeface-merriweather'
-// import 'typeface-emilys-candy'
-
 import pic from '../assets/me.jpg'
 import { rhythm } from '../utils/typography'
 
@@ -19,15 +14,19 @@ class Bio extends React.Component {
           maxWidth: rhythm(12.5),
         }}
       >
-        <img
-          src={pic}
-          title={`Manu Gill`}
+        <div
+          title="Manu Gill"
           style={{
-            float: 'right',
+            backgroundImage: `url(${pic})`,
+            backgroundSize: 'cover',
+            float: 'left',
             marginRight: rhythm(0.5),
             marginBottom: 0,
-            width: rhythm(1.75),
-            height: rhythm(1.75),
+            // width: rhythm(1.75),
+            // height: rhythm(1.75),
+            width: 50,
+            height: 50,
+            minWidth: 50,
             borderRadius: '100%',
             background: '#eee',
           }}

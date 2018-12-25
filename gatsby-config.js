@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `A Beating Heart`,
     author: `Manu Gill`,
-    description: `asd`,
+    description: `Blog by Manu Gill — manuis.in`,
     siteUrl: '//manuis.in',
     social: {
       twitter: '@manuisin',
@@ -10,6 +10,12 @@ module.exports = {
   },
   pathPrefix: '/',
   plugins: [
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`${__dirname}/src/components/Layout`)
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -29,9 +35,7 @@ module.exports = {
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
+            options: {},
           },
           {
             resolve: 'gatsby-remark-prismjs',

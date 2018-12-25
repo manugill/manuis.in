@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
 
 import Bio from '../components/Bio'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PostMeta from '../components/PostMeta'
 import { rhythm, scale } from '../utils/typography'
@@ -11,21 +9,19 @@ import { rhythm, scale } from '../utils/typography'
 const GITHUB_USERNAME = 'manugill'
 const GITHUB_REPO_NAME = 'manuis.in'
 
-const w = typeof window === 'undefined' ? {} : window
-const { host = 'manuis.in' } = w
-
 class PostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = get(this.props, 'data.site.siteMetadata.title')
+    const { data } = this.props
+    const post = data.markdownRemark
+    const { title, description } = data.site.siteMetadata
     const { previous, next, slug = '' } = this.props.pageContext
-    console.log(previous, next)
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/posts/${slug.replace(
       /\//g,
       ''
     )}.md`
+
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <React.Fragment>
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.spoiler}
@@ -71,7 +67,7 @@ class PostTemplate extends React.Component {
           }}
         >
           <Link to={'/'} style={{ color: 'inherit' }}>
-            {siteTitle}
+            {title}
           </Link>
         </h3>
         <p
@@ -82,7 +78,7 @@ class PostTemplate extends React.Component {
             marginBottom: rhythm(0.5),
           }}
         >
-          Blog by Manu Gill — {host}
+          {description}
         </p>
         <Bio />
 
@@ -111,7 +107,7 @@ class PostTemplate extends React.Component {
             )}
           </li>
         </ul>
-      </Layout>
+      </React.Fragment>
     )
   }
 }
@@ -123,6 +119,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        description
         author
       }
     }

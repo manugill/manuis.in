@@ -3,23 +3,17 @@ import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 
 import Bio from '../components/Bio'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import PostMeta from '../components/PostMeta'
 import Footer from '../components/Footer'
-import { rhythm } from '../utils/typography'
+import { rhythm, shadowUnderline } from '../utils/typography'
 
 class BlogIndex extends React.Component {
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const siteDescription = get(
-      this,
-      'props.data.site.siteMetadata.description'
-    )
-    const posts = get(this, 'props.data.allMarkdownRemark.edges')
+    const posts = this.props.data.allMarkdownRemark.edges
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <React.Fragment>
         <SEO />
         <Bio />
         {posts.map(({ node }) => {
@@ -31,7 +25,12 @@ class BlogIndex extends React.Component {
                   marginBottom: rhythm(0),
                 }}
               >
-                <Link to={node.fields.slug}>{title}</Link>
+                <Link
+                  to={node.fields.slug}
+                  style={shadowUnderline}
+                >
+                  {title}
+                </Link>
               </h3>
               <PostMeta {...node} style={{ marginBottom: rhythm(0.25) }} />
               <p
@@ -41,7 +40,7 @@ class BlogIndex extends React.Component {
           )
         })}
         <Footer />
-      </Layout>
+      </React.Fragment>
     )
   }
 }

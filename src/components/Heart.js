@@ -25,6 +25,7 @@ const scaleAndTranslate = (pos, sx, sy, dx, dy) => [
 const rand = Math.random
 
 class Graphic extends React.Component {
+  state = { animate: true }
   pointsOrigin = []
   e = []
   width = 0
@@ -32,32 +33,47 @@ class Graphic extends React.Component {
 
   heartPointsCount = () => this.pointsOrigin.length
 
-  updateDimensions = () => {
+  updateDimensions = (force = false) => {
     const { canvas } = this.refs
-    const { width, height } = canvas.getBoundingClientRect()
-    const koef = 1.25
-    this.width = canvas.width = koef * width
-    this.height = canvas.height = koef * height
+    if (canvas) {
+      const { width, height } = canvas.getBoundingClientRect()
+      const koef = 1.25
+      const newWidth = koef * width
+      const newHeight = koef * height
+
+      if (force || newWidth !== this.width) {
+        this.width = canvas.width = newWidth
+        this.height = canvas.height = newHeight
+      }
+    }
+  }
+
+  updateScroll = () => {
+    const animate = window.scrollY < 450
+    const refreshSize = !this.state.animate && animate
+    this.setState({ animate }, () => refreshSize && this.updateDimensions(true))
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions)
+    window.addEventListener('scroll', this.updateScroll)
   }
 
   async componentDidMount() {
     this.updateDimensions()
     window.addEventListener('resize', this.updateDimensions)
+    window.addEventListener('scroll', this.updateScroll)
 
-    const traceCount = 50
-    const dr = 0.1
+    const traceCount = 30
+    const dr = 0.05
 
     // I don't understand why PI * 2 is being used here.
     for (let i = 0; i < Math.PI * 2; i += dr)
-      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 210, 13, 0, 0))
+      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 90, 5, 0, 0))
     for (let i = 0; i < Math.PI * 2; i += dr)
       this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 150, 9, 0, 0))
     for (let i = 0; i < Math.PI * 2; i += dr)
-      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 90, 5, 0, 0))
+      this.pointsOrigin.push(scaleAndTranslate(heartPos(i), 210, 13, 0, 0))
 
     for (let i = 0; i < this.heartPointsCount(); i++) {
       var x = rand() * this.width
@@ -83,12 +99,14 @@ class Graphic extends React.Component {
   }
 
   componentDidUpdate = () => {
-    const { pointsOrigin, e, refs } = this
+    const { pointsOrigin, e, refs, props, state } = this
+    const { time, n } = props
+    const { animate } = state
+
+    if (!animate && time > 100) return
+
+    let targetPoints = []
     const ctx = refs.canvas.getContext('2d')
-
-    const { n } = this.props
-
-    var targetPoints = []
 
     // pulse
     // const kx = (1 + n) * 0.5
@@ -158,14 +176,14 @@ class Graphic extends React.Component {
         ref="canvas"
         style={{
           position: 'absolute',
-          zIndex: 1,
-          left: 0,
+          zIndex: -1,
+          left: '50%',
+          transform: `translateX(-50%)`,
           top: 0,
-          width: '100%',
-          height: 450,
-          borderBottomLeftRadius: '100%',
-          borderBottomRightRadius: '100%',
-          overflow: 'hidden',
+          maxWidth: '100%',
+          width: 630,
+          height: 440,
+          display: this.state.animate ? 'block' : 'none',
         }}
       />
     )
@@ -177,7 +195,6 @@ class Heart extends React.PureComponent {
   animationHandle = undefined
 
   componentDidMount = () => this.nextFrame()
-
   componentWillUnmount = () => cancelAnimationFrame(this.animationHandle)
 
   nextFrame = () => {
@@ -190,14 +207,14 @@ class Heart extends React.PureComponent {
   // negative cos of time just makes the heart super tiny for certain values of time.
   // newTime = (time = this.state.time, n = this.n()) =>
   //   time + (Math.sin(time) < 0 ? 1 : n < 0.8 ? 0.5 : 1) * 0.5
-  // n = () => -Math.cos(this.state.time)
+  // n = () => (-Math.cos(this.state.time) * .2) * -.1
 
   // But I don't really want that.
-  newTime = (time = this.state.time) => time + 1
+  newTime = () => this.state.time + 1
   n = () => 0
 
   render = () => {
-    return <Graphic n={this.n()} />
+    return <Graphic time={this.state.time} n={this.n()} />
   }
 }
 
