@@ -10,7 +10,7 @@ class NotFoundPage extends React.Component {
         <iframe
           width="100%"
           height="360"
-          src="https://youtu.be/p5GB7eXW8Lw?t=12"
+          src="//www.youtube.com/embed/p5GB7eXW8Lw?controls=0"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullscreen
