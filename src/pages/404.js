@@ -11,9 +11,9 @@ class NotFoundPage extends React.Component {
           width="100%"
           height="360"
           src="//www.youtube.com/embed/p5GB7eXW8Lw?controls=0"
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen
+          allowFullScreen
         />
         <p>It's probably my fault. So, here's some kpop for you.</p>
       </React.Fragment>

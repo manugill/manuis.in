@@ -6,11 +6,17 @@ import { rhythm, scale, shadowUnderline } from '../utils/typography'
 
 class Layout extends React.Component {
   render() {
-    const { children, data = { site: { siteMetadata: {} } } } = this.props
+    const {
+      path,
+      children,
+      data = { site: { siteMetadata: {} } },
+    } = this.props
     const { title, description } = data.site.siteMetadata
-    const rootPath = `${__PATH_PREFIX__}/`
-    const l = typeof location !== 'undefined' ? location : { pathname: '/' }
-    const isHome = l.pathname === rootPath
+
+    const pagePath = this.props['*']
+    const isHome = path === '/*' && pagePath === ''
+
+    console.log(this.props)
 
     const header = isHome ? (
       <div
@@ -42,7 +48,9 @@ class Layout extends React.Component {
           lineHeight: 1,
         }}
       >
-          <Link to={'/'} style={shadowUnderline}>{title}</Link>
+        <Link to={'/'} style={shadowUnderline}>
+          {title}
+        </Link>
       </h3>
     )
 
