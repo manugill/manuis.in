@@ -1,0 +1,209 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+h1 {
+  font-size: 140%;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+h2 {
+  border-bottom: 1px solid #ccc;
+  clear: both;
+  text-transform: uppercase;
+  font-size: 110%;
+  font-weight: bold;
+  margin: 18px 0 13px;
+  padding: 0 0 2px;
+}
+
+h3 {
+  float: left;
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+h3 span {
+  opacity: .8;
+  margin-left: 2px;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+p,
+li {
+  line-height: 1.4;
+}
+
+a {
+  color: #222;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+li {
+  margin: 0 0 2px 20px;
+}
+
+body {
+  padding-top: 20px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.clear::before,
+.clear::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.job::before,
+.job::after,
+h2::before,
+h2::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.bio-left {
+  float: left;
+  width: 50%;
+}
+
+.bio-right {
+  float: left;
+  text-align: right;
+  width: 50%;
+}
+
+.job {
+  clear: both;
+  margin-bottom: 12px;
+}
+
+.job-data {
+  float: right;
+  width: 82%;
+}
+
+.job-data ul {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.job-data > ul > li {
+  position: relative;
+  margin-left: 20px;
+}
+
+.job-data > ul > li::before {
+  content: '\2014';
+  float: left;
+  width: 20px;
+  margin-left: -20px;
+  color: #ccc;
+}
+
+.job ul ul {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.company,
+.position,
+.job-data > ul {
+  clear: both;
+}
+
+.company {
+  margin: 0 0 5px;
+  padding: 0;
+}
+
+.data {
+  padding-left: 18%;
+}
+
+.date {
+  clear: left;
+  float: left;
+  padding-top: 3px;
+  width: 18%;
+}
+
+.position {
+  clear: right;
+  float: right;
+  padding-top: 3px;
+  margin-bottom: 5px;
+}
+
+.description {
+  clear: both;
+  font-style: italic;
+  margin: 0 0 5px;
+}
+
+ul.grid {
+  list-style: none;
+  margin: 0 -5px 5px;
+}
+
+ul.grid > li {
+  margin: 0;
+  padding: 0 5px 10px;
+  width: 50%;
+  float: left;
+}
+
+ul.grid,
+ul.grid > li:nth-child(2n+1)::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+ul.grid > li.full {
+  width: 100%;
+}
+
+ul.no-bullets {
+  list-style: none;
+}
+
+ul.no-bullets > li {
+  margin-left: 0;
+}
+
+#bottom {
+  margin-top: 20px;
+}
+
+@media print {
+  body {
+    padding-top: 0;
+  }
+  #bottom {
+    display: none;
+  }
+}

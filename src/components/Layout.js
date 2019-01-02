@@ -16,8 +16,6 @@ class Layout extends React.Component {
     const pagePath = this.props['*']
     const isHome = path === '/*' && pagePath === ''
 
-    console.log(this.props)
-
     const header = isHome ? (
       <div
         style={{

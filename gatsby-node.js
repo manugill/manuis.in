@@ -3,58 +3,48 @@ const Promise = require('bluebird')
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 
-exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+const PostComponent = path.resolve('./src/pages/post.js')
 
-  return new Promise((resolve, reject) => {
-    const PostComponent = path.resolve('./src/pages/post.js')
-    resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark(
-              sort: { fields: [frontmatter___date], order: DESC }
-              limit: 1000
-            ) {
-              edges {
-                node {
-                  fields {
-                    slug
-                  }
-                  frontmatter {
-                    title
-                  }
-                }
-              }
+exports.createPages = async ({ graphql, actions: { createPage } }) => {
+  const result = await graphql(`
+    {
+      allMarkdownRemark(
+        sort: { fields: [frontmatter___date], order: DESC }
+        limit: 1000
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
         }
+      }
+    }
+  `)
 
-        // Create blog posts pages.
-        const posts = result.data.allMarkdownRemark.edges
+  if (result.errors) {
+    console.log(result.errors)
+    reject(result.errors)
+  }
 
-        _.each(posts, (post, index) => {
-          const previous =
-            index === posts.length - 1 ? null : posts[index + 1].node
-          const next = index === 0 ? null : posts[index - 1].node
+  // Create blog posts pages.
+  const posts = result.data.allMarkdownRemark.edges
 
-          createPage({
-            path: post.node.fields.slug,
-            component: PostComponent,
-            context: {
-              slug: post.node.fields.slug,
-              previous,
-              next,
-            },
-          })
-        })
-      })
-    )
+  _.each(posts, (post, index) => {
+    const previous =
+      index === posts.length - 1 ? null : posts[index + 1].node
+    const next = index === 0 ? null : posts[index - 1].node
+    const { slug } = post.node.fields
+
+    createPage({
+      path: slug,
+      component: PostComponent,
+      context: { slug, previous, next },
+    })
   })
 }
 

@@ -1,11 +1,11 @@
 {
-  "name": "overreacted",
+  "name": "manuis.in",
   "private": true,
-  "description": "Overreacted",
-  "version": "1.0.0",
-  "author": "Dan Abramov <dan.abramov@me.com>",
+  "description": "A Beating Heart",
+  "version": "0.0.1",
+  "author": "Manu Gill <manugill1995@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gaearon/overreacted.io/issues"
+    "url": "https://github.com/manugill/manuis.in/issues"
   },
   "dependencies": {
     "gatsby": "^2.0.75",
