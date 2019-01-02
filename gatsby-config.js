@@ -13,8 +13,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-        component: require.resolve(`${__dirname}/src/components/Layout`)
-      }
+        component: require.resolve(`${__dirname}/src/components/Layout`),
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -53,7 +53,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: `UA-130227707-1`,
+        trackingId: `UA-109208106-3`,
       },
     },
     `gatsby-plugin-feed`,
