@@ -64,7 +64,9 @@ class Graphic extends React.Component {
     window.addEventListener('resize', this.updateDimensions)
     window.addEventListener('scroll', this.updateScroll)
 
-    const traceCount = 30
+    const iOS =
+      !!navigator.platform && /iPade|iPhone|iPod/.test(navigator.platform)
+    const traceCount = iOS ? 10 : 30
     const dr = 0.05
 
     // I don't understand why PI * 2 is being used here.
@@ -123,7 +125,7 @@ class Graphic extends React.Component {
       targetPoints[i][1] = ky * pointsOrigin[i][1] + 250
     }
 
-    ctx.fillStyle = 'rgba(255,255,255,.1)' // background color
+    ctx.fillStyle = `rgba(255,255,255,.05)` // background color
     ctx.fillRect(0, 0, this.width, this.height)
 
     for (let i = e.length; i--; ) {
