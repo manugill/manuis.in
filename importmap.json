@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.0.0-alpha-82583617b-20210812",
+    "react-dom": "https://esm.sh/react-dom@18.0.0-alpha-82583617b-20210812",
+    "react-dom/server": "https://esm.sh/react-dom@18.0.0-alpha-82583617b-20210812/server",
+    "helmet": "https://esm.sh/react-helmet-async?deps=react@18.0.0-alpha-82583617b-20210812&no-check",
+    "wouter": "https://esm.sh/wouter?deps=react@18.0.0-alpha-82583617b-20210812&no-check",
+    "swr": "https://esm.sh/swr?deps=react@18.0.0-alpha-82583617b-20210812&no-check",
+
+    "styled-components": "https://esm.sh/styled-components@5.3.0?deps=react@18.0.0-alpha-82583617b-20210812&no-check"
+  }
+}
