@@ -14,6 +14,7 @@ const Name = styled.div`
 	position: relative;
 	display: inline-block;
 	color: rgba(150, 48, 48, 1);
+	transform:
 `
 const Domain = styled.div`
 	position: absolute;
@@ -28,7 +29,7 @@ const Domain = styled.div`
 const Header = () => <Wrap>
 	<Name>
 		मनु सिंह गिल{` `}
-		<Domain>manuis.in</Domain>
+		<Domain title="you're already here duh.">manuis.in</Domain>
 		</Name>
 </Wrap>
 

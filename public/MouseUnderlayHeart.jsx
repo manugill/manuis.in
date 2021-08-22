@@ -48,21 +48,8 @@ class Graphic extends React.Component {
     }
   }
 
-  // updateScroll = () => {
-  //   const animate = window.scrollY < 450
-  //   const refreshSize = !this.state.animate && animate
-  //   this.setState({ animate }, () => refreshSize && this.updateDimensions(true))
-  // }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions)
-    // window.addEventListener('scroll', this.updateScroll)
-  }
-
   async componentDidMount() {
     this.updateDimensions()
-    window.addEventListener('resize', this.updateDimensions)
-    // window.addEventListener('scroll', this.updateScroll)
 
     const iOS =
       !!navigator.platform && /iPade|iPhone|iPod/.test(navigator.platform)

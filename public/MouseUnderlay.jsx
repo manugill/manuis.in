@@ -57,7 +57,7 @@ const MouseUnderlay = () => {
   const shakeTimeoutRef = useRef(undefined);
 
   useEffect(() => {
-    setTimeout(() => setWait(undefined), 1000);
+    setTimeout(() => setWait(undefined), 2000);
   }, []);
 
   useEffect(() => {

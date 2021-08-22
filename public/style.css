@@ -21,3 +21,13 @@ body {
   -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
   scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
+
+p {
+	line-height: 1.8;
+	font-size: 21px;
+}
+
+i {
+	font-size: 25px;
+	font-family: Kalam, Helvetica, Sans-Serif;
+}
